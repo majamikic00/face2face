@@ -350,8 +350,8 @@
   .header.compact-header .nav__links{ max-height:0; opacity:0; overflow:hidden; transform: translateY(-6px); }
   .nav__links{ max-height:200px; opacity:1; }
   .header.compact-header .nav a.btn{ display:inline-flex !important; }
-  /* show brand name in compact state (override earlier rule) */
-  .header.compact-header .brand__name{ display:block !important; font-weight:700; margin-left:8px }
+  /* in compact state the brand name is hidden to save space on mobile */
+  .header.compact-header .brand__name{ display:none !important; }
   /* hide small subtext to save space */
   .header.compact-header .brand__sub{ display:none !important; }
 }
