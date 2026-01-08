@@ -343,6 +343,12 @@
   .brand{ gap:14px; }
   .header{ /* etwas weniger Höhe auf Tablet */ padding:0; }
 }
+/* Fix hero card width on mobile so Quick Info doesn't overflow */
+@media (max-width: 760px){
+  .container{ overflow:hidden; }
+  .hero__card{ width:100%; box-sizing:border-box; max-width:100%; margin:0; }
+  .hero__card, .hero__card *{ -webkit-box-sizing: border-box; box-sizing: border-box; }
+}
 /* Compact header state for mobile: show only logo + name + action button */
 @media (max-width: 760px){
   .header.compact-header .header__inner{ flex-direction:row; align-items:center; justify-content:space-between; padding:8px 12px; }
