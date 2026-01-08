@@ -340,6 +340,17 @@
   .brand{ gap:14px; }
   .header{ /* etwas weniger Höhe auf Tablet */ padding:0; }
 }
+/* Compact header state for mobile: show only logo + name + action button */
+@media (max-width: 760px){
+  .header.compact-header .header__inner{ flex-direction:row; align-items:center; justify-content:space-between; padding:8px 12px; }
+  /* hide nav links but keep action buttons (class .btn) visible */
+  .header.compact-header .nav a{ display:none !important; }
+  .header.compact-header .nav a.btn{ display:inline-block !important; }
+  /* show brand name in compact state (override earlier rule) */
+  .header.compact-header .brand__name{ display:block !important; font-weight:700; margin-left:8px }
+  /* hide small subtext to save space */
+  .header.compact-header .brand__sub{ display:none !important; }
+}
   @media (max-width: 560px){
     h1{ font-size:32px; }
     .kicker{ font-size:11px; }

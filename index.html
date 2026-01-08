@@ -9,7 +9,6 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
   <header class="header">
     <div class="container header__inner">
       <a class="brand" href="#">
@@ -186,6 +185,37 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function(){
+      var header = document.querySelector('.header');
+      if(!header) return;
+      var lastY = window.scrollY || 0;
+      var threshold = 8; // pixels to ignore tiny moves
+      // only run behavior on small screens
+      function isMobile(){ return window.innerWidth <= 760; }
+
+      window.addEventListener('scroll', function(){
+        if(!isMobile()){
+          header.classList.remove('compact-header');
+          lastY = window.scrollY || 0;
+          return;
+        }
+        var y = window.scrollY || 0;
+        var delta = y - lastY;
+        if(Math.abs(delta) < threshold) return; // ignore tiny movements
+        if(delta > 0 && y > 40){
+          // scrolling down: compact header (hide nav links)
+          header.classList.add('compact-header');
+        } else if(delta < 0){
+          // scrolling up: reveal nav links again
+          header.classList.remove('compact-header');
+        }
+        lastY = y;
+      }, {passive:true});
+
+      // also reset on resize
+      window.addEventListener('resize', function(){ if(!isMobile()) header.classList.remove('compact-header'); });
+    })();
   </script>
 </body>
 </html>
