@@ -343,9 +343,9 @@
 /* Compact header state for mobile: show only logo + name + action button */
 @media (max-width: 760px){
   .header.compact-header .header__inner{ flex-direction:row; align-items:center; justify-content:space-between; padding:8px 12px; }
-  /* hide nav links but keep action buttons (class .btn) visible */
-  .header.compact-header .nav a{ display:none !important; }
-  .header.compact-header .nav a.btn{ display:inline-block !important; }
+  /* hide nav links except the action button (more robust selector) */
+  .header.compact-header .nav a:not(.btn){ display:none !important; }
+  .header.compact-header .nav a.btn{ display:inline-flex !important; }
   /* show brand name in compact state (override earlier rule) */
   .header.compact-header .brand__name{ display:block !important; font-weight:700; margin-left:8px }
   /* hide small subtext to save space */
