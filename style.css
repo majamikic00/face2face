@@ -130,7 +130,7 @@
   .brand__logo:hover{ transform: translateY(-4px) scale(1.02); box-shadow: 0 38px 90px rgba(0,0,0,0.42); }
   
   .nav{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
-  .nav__links{display:flex; gap:12px; align-items:center; transition: max-height .28s cubic-bezier(.2,.9,.3,1), opacity .22s ease, transform .22s ease; overflow:hidden; will-change:transform,opacity;}
+  .nav__links{display:flex; gap:12px; align-items:center; transition: max-height .36s cubic-bezier(.2,.9,.3,1), opacity .36s ease, transform .36s ease; overflow:hidden; will-change:transform,opacity;}
   .nav__links a{white-space:nowrap}
   .nav a{color:var(--muted)}
   .nav a:hover{color:var(--text)}
