@@ -198,6 +198,10 @@
       // rAF-based scroll handling for smoother transitions
       var latestY = lastY;
       var ticking = false;
+      var upAccum = 0; // accumulated upward scroll
+      var downAccum = 0; // accumulated downward scroll
+      var revealThreshold = 30; // px of upward scroll required to reveal
+      var hideThreshold = 14; // px of downward scroll required to hide
 
       window.addEventListener('scroll', function(){ latestY = window.scrollY || 0; if(!ticking){ ticking = true; requestAnimationFrame(onScrollTick); } }, {passive:true});
 
@@ -206,6 +210,7 @@
           header.classList.remove('compact-header');
           lastY = latestY;
           ticking = false;
+          upAccum = downAccum = 0;
           return;
         }
 
@@ -213,9 +218,21 @@
         var delta = y - lastY;
         if(Math.abs(delta) >= threshold){
           if(delta > 0 && y > 20){
-            header.classList.add('compact-header');
+            // scrolling down: accumulate and hide only after threshold
+            downAccum += delta;
+            upAccum = 0;
+            if(downAccum > hideThreshold){
+              header.classList.add('compact-header');
+              downAccum = 0;
+            }
           } else if(delta < 0){
-            header.classList.remove('compact-header');
+            // scrolling up: accumulate and reveal only after a bit more movement
+            upAccum += -delta;
+            downAccum = 0;
+            if(upAccum > revealThreshold){
+              header.classList.remove('compact-header');
+              upAccum = 0;
+            }
           }
           lastY = y;
         }
