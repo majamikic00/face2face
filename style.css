@@ -6,7 +6,7 @@
     --muted:#5c5c5c;
     --line:rgba(0,0,0,.08);
     --accent:#d7c7b6; /* warmes nude */
-    --top-color:#C7B39A; /* kräftiger oben */
+    --top-color:#F26B8A; /* kräftiger oben */
     --card-1:#fff1f6;
     --card-2:#ffe6ec;
     --card-3:#ffdce6;
@@ -47,8 +47,8 @@
     background-image:url('images/0.jpg');
     background-size:cover;
     background-position:center;
-    filter:blur(10px);
-    opacity:0.6;
+    filter:blur(12px);
+    opacity:0.95;
     z-index:-1;
     pointer-events:none;
   }
@@ -76,7 +76,33 @@
     margin:0;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     color:var(--text);
-    background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.12), rgba(255,255,255,0) 20%), var(--bg);
+    position:relative;
+    background:#ffd6e0;
+  }
+  body::before{
+    content:'';
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-image:url('images/0.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    filter:blur(8px);
+    z-index:-2;
+  }
+  body::after{
+    content:'';
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(255,214,224,0.25);
+    pointer-events:none;
+    z-index:-1;
   }
 
   /* Skip-link für Tastaturnutzer (sichtbar beim Fokussieren) */
