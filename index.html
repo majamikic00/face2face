@@ -20,10 +20,12 @@
       </a>
 
       <nav class="nav" aria-label="Hauptnavigation">
-        <a href="#services">Behandlungen</a>
-        <a href="#preise">Preise</a>
-        <a href="#rabatt">Rabatt</a>
-        <a href="#kontakt">Kontakt</a>
+        <div class="nav__links">
+          <a href="#services">Behandlungen</a>
+          <a href="#preise">Preise</a>
+          <a href="#rabatt">Rabatt</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
         <a class="btn btn--small" href="#termin">Termin anfragen</a>
       </nav>
     </div>
@@ -194,24 +196,33 @@
       // only run behavior on small screens
       function isMobile(){ return window.innerWidth <= 760; }
 
-      window.addEventListener('scroll', function(){
+      // rAF-based scroll handling for smoother transitions
+      var latestY = lastY;
+      var ticking = false;
+
+      window.addEventListener('scroll', function(){ latestY = window.scrollY || 0; if(!ticking){ ticking = true; requestAnimationFrame(onScrollTick); } }, {passive:true});
+
+      function onScrollTick(){
         if(!isMobile()){
           header.classList.remove('compact-header');
-          lastY = window.scrollY || 0;
+          lastY = latestY;
+          ticking = false;
           return;
         }
-        var y = window.scrollY || 0;
+
+        var y = latestY;
         var delta = y - lastY;
-        if(Math.abs(delta) < threshold) return; // ignore tiny movements
-        if(delta > 0 && y > 20){
-          // scrolling down: compact header (hide nav links)
-          header.classList.add('compact-header');
-        } else if(delta < 0){
-          // scrolling up: reveal nav links again
-          header.classList.remove('compact-header');
+        if(Math.abs(delta) >= threshold){
+          if(delta > 0 && y > 20){
+            header.classList.add('compact-header');
+          } else if(delta < 0){
+            header.classList.remove('compact-header');
+          }
+          lastY = y;
         }
-        lastY = y;
-      }, {passive:true});
+        // small delay to avoid flicker when stopping scroll
+        setTimeout(function(){ ticking = false; }, 80);
+      }
 
       // also reset on resize
       window.addEventListener('resize', function(){ if(!isMobile()) header.classList.remove('compact-header'); });
