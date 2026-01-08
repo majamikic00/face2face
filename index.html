@@ -227,5 +227,42 @@
       window.addEventListener('resize', function(){ if(!isMobile()) header.classList.remove('compact-header'); });
     })();
   </script>
+  <script>
+    // Ensure in-page anchor links scroll exactly to the section header
+    function updateHeaderOffset(){
+      var header = document.querySelector('.header');
+      if(!header){
+        document.documentElement.style.setProperty('--header-offset','0px');
+        return 0;
+      }
+      var h = Math.ceil(header.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--header-offset', h + 'px');
+      return h;
+    }
+
+    document.addEventListener('DOMContentLoaded', updateHeaderOffset);
+    window.addEventListener('load', updateHeaderOffset);
+    window.addEventListener('resize', updateHeaderOffset);
+
+    document.addEventListener('click', function(e){
+      var el = e.target;
+      while(el && el !== document){
+        if(el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href').startsWith('#')){
+          var href = el.getAttribute('href');
+          if(href === '#' || href === '') return;
+          var target = document.querySelector(href);
+          if(!target) return;
+          e.preventDefault();
+          var headerH = updateHeaderOffset();
+          var targetTop = target.getBoundingClientRect().top + window.scrollY;
+          var scrollTo = Math.max(0, Math.floor(targetTop - headerH));
+          window.scrollTo({ top: scrollTo, behavior: 'smooth' });
+          history.pushState(null, '', href);
+          return;
+        }
+        el = el.parentNode;
+      }
+    }, { passive: false });
+  </script>
 </body>
 </html>
