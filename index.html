@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body class="is-loading">
+<body>
+  <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
   <header class="header">
     <div class="container header__inner">
       <a class="brand" href="#">
@@ -19,7 +20,7 @@
         </div>
       </a>
 
-      <nav class="nav">
+      <nav class="nav" aria-label="Hauptnavigation">
         <a href="#services">Behandlungen</a>
         <a href="#preise">Preise</a>
         <a href="#rabatt">Rabatt</a>
@@ -29,7 +30,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- HERO -->
     <section class="hero">
       <div class="container hero__inner">
@@ -128,8 +129,6 @@
             <span>Kombi-Behandlung</span><strong>ab ___ €</strong>
           </div>
         </div>
-
-        <p class="note">Tipp: Wenn du willst, baue ich dir auch eine „Preislisten“-Seite als PDF-Download.</p>
       </div>
     </section>
 
@@ -186,60 +185,7 @@
   </footer>
 
   <script>
-    // Jahr setzen
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // berechnet Header-Höhe und setzt CSS-Variable für sauberes Scroll-Offset
-    function updateHeaderOffset(){
-      var header = document.querySelector('.header');
-      if(!header) return;
-      var h = header.getBoundingClientRect().height;
-      document.documentElement.style.setProperty('--header-offset', Math.ceil(h) + 'px');
-    }
-
-    // sanftes, präzises Scrollen zu internen Ankern (richtig unter dem fixen Header)
-    function scrollToAnchor(targetSelector){
-      var target = document.querySelector(targetSelector);
-      if(!target) return;
-      var header = document.querySelector('.header');
-      var headerH = header ? header.getBoundingClientRect().height : 0;
-      var targetTop = target.getBoundingClientRect().top + window.scrollY;
-      var scrollTo = Math.max(0, Math.floor(targetTop - headerH));
-      window.scrollTo({ top: scrollTo, behavior: 'smooth' });
-    }
-
-    // Interne Anker-Links abfangen
-    document.addEventListener('click', function(e){
-      var el = e.target;
-      while(el && el !== document){
-        if(el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href').startsWith('#')){
-          var href = el.getAttribute('href');
-          if(href === '#' || href === '') return;
-          var target = document.querySelector(href);
-          if(!target) return;
-          e.preventDefault();
-          // Stelle sicher, dass Header-Offset aktuell ist
-          updateHeaderOffset();
-          scrollToAnchor(href);
-          // optional: URL anpassen ohne page reload
-          history.pushState(null, '', href);
-          return;
-        }
-        el = el.parentNode;
-      }
-    }, { passive: false });
-
-    // Laden: Animation beenden und Header-Offset setzen
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        document.body.classList.remove('is-loading');
-        updateHeaderOffset();
-      }, 120);
-    });
-
-    // bei Resize nachführen (z.B. bei Orientierung/Viewport-Änderung)
-    window.addEventListener('resize', updateHeaderOffset);
-    document.addEventListener('DOMContentLoaded', updateHeaderOffset);
   </script>
 </body>
 </html>
