@@ -63,24 +63,23 @@
     color:var(--text);
     background-color: var(--bg);
     position:relative;
+    background-image:url('images/0.jpg');
+    background-attachment:fixed;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
   }
   body::before{
     content:'';
     position:fixed;
     top:0;
     left:0;
-    width:100vw;
-    height:100vh;
-    background-image:url('images/0.jpg');
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    filter:blur(12px);
-    opacity:0.6;
+    right:0;
+    bottom:0;
+    background:rgba(255,214,224,0.4);
+    filter:blur(8px);
     z-index:-1;
     pointer-events:none;
-  }
-  }
   }
 
   /* Skip-link für Tastaturnutzer (sichtbar beim Fokussieren) */
