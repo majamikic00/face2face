@@ -146,6 +146,23 @@
   .btn--small{padding:10px 12px; border-radius:10px; font-size:14px}
   
   .hero{padding:48px 0 26px;}
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-image:url('images/0.jpg');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    filter:blur(12px);
+    opacity:0.25;
+    z-index:-1;
+    pointer-events:none;
+  }
+  .hero{position:relative;}
   .hero__inner{display:grid; grid-template-columns: 1.4fr .8fr; gap:22px; align-items:start}
   .kicker{color:var(--muted); letter-spacing:.14em; font-size:12px}
   h1{margin:10px 0 10px; font-size:46px; line-height:1.05}
